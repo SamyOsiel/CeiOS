@@ -1,0 +1,4 @@
+# CeiOS — zram para equipos con 2 GB de RAM
+ALGO=lz4
+PERCENT=50
+PRIORITY=100

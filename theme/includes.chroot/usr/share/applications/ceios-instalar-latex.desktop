@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Instalar LaTeX ligero
+Name[es]=CeiOS · Instalar LaTeX ligero
+Comment=TeX Live básico con soporte de español para tesis y artículos
+Exec=qterminal -e bash /usr/local/bin/ceios/install-latex-light.sh
+Icon=application-x-executable
+Terminal=false
+Categories=System;Science;
+Keywords=ceios;latex;tex;tutorial;

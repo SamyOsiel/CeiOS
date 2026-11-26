@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Primeros pasos
+Name[es]=CeiOS · Primeros pasos
+GenericName=Asistente de bienvenida
+Comment=Aplica el tema Windows 11, optimiza la RAM e instala los módulos
+Exec=qterminal -e bash /usr/local/bin/ceios/primeros-pasos.sh
+Icon=start-here
+Terminal=false
+Categories=System;Science;
+Keywords=ceios;configuracion;bienvenida;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Office 2016 (Wine)
+Name[es]=CeiOS · Office 2016 (Wine)
+Comment=Módulo de Microsoft Office 2016: requiere TU licencia e instalador
+Exec=qterminal -e bash /usr/local/bin/ceios/setup-wine-office2016.sh
+Icon=application-x-executable
+Terminal=false
+Categories=System;Office;
+Keywords=ceios;office;word;excel;wine;

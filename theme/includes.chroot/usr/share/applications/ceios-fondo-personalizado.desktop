@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Fondo con mi imagen
+Name[es]=CeiOS · Fondo con mi imagen
+Comment=Integra tu imagen, centrada, sobre el diseño azul y rojo de CeiOS
+Exec=qterminal -e bash /usr/local/bin/ceios/make-wallpaper.sh
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Categories=System;Science;
+Keywords=ceios;fondo;wallpaper;imagen;

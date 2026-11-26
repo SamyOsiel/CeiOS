@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Instalar Zotero
+Name[es]=CeiOS · Instalar Zotero
+Comment=Gestor de referencias gratuito (nativo)
+Exec=qterminal -e bash /usr/local/bin/ceios/install-zotero.sh
+Icon=application-x-executable
+Terminal=false
+Categories=System;Science;
+Keywords=ceios;zotero;referencias;

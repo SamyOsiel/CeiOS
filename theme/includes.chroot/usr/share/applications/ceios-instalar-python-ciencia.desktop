@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Instalar Python científico
+Name[es]=CeiOS · Instalar Python científico
+Comment=Entorno virtual con numpy, scipy, pandas y matplotlib
+Exec=qterminal -e bash /usr/local/bin/ceios/install-python-ciencia.sh
+Icon=application-x-executable
+Terminal=false
+Categories=System;Science;
+Keywords=ceios;python;ciencia;datos;

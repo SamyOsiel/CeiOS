@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · Instalar OnlyOffice
+Name[es]=CeiOS · Instalar OnlyOffice
+Comment=Suite gratuita con alta compatibilidad con MS Office
+Exec=qterminal -e bash /usr/local/bin/ceios/install-onlyoffice.sh
+Icon=application-x-executable
+Terminal=false
+Categories=System;Office;
+Keywords=ceios;onlyoffice;ofimatica;

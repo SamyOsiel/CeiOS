@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CeiOS · EndNote (Wine, avanzado)
+Name[es]=CeiOS · EndNote (Wine, avanzado)
+Comment=Módulo EndNote: requiere TU licencia; en 2 GB se recomienda Zotero
+Exec=qterminal -e bash /usr/local/bin/ceios/setup-wine-endnote.sh
+Icon=application-x-executable
+Terminal=false
+Categories=System;Science;
+Keywords=ceios;endnote;referencias;wine;
