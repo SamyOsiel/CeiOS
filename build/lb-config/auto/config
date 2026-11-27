@@ -1,15 +1,15 @@
 #!/bin/sh
 # CeiOS 0.1 «Tocororo» — configuración live-build (Debian 12 bookworm, amd64)
+# Nota: live-build 20230502 (bookworm) no tiene la opción --username; el usuario
+# del sistema live se define con live-config.username en --bootappend-live.
 lb config noauto \
     --architecture amd64 \
     --distribution bookworm \
     --archive-areas "main contrib non-free non-free-firmware" \
     --binary-images iso-hybrid \
     --debian-installer none \
-    --username investigador \
-    --bootappend-live "boot=live components quiet splash locales=es_ES.UTF-8 keyboard-layouts=es,us" \
+    --bootappend-live "boot=live components quiet splash locales=es_ES.UTF-8 keyboard-layouts=es,us live-config.username=investigador live-config.user-fullname=Investigador" \
     --iso-application "CeiOS 0.1 - Ciencia e Investigacion OS" \
     --iso-volume "CeiOS-0.1-amd64" \
     --checksums sha256 \
-    --cache packages \
     "${@}"

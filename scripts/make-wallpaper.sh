@@ -45,8 +45,15 @@ convert /tmp/ceios-marco.png \
 convert "$SALIDA" /tmp/ceios-marco-sombra.png -gravity center -geometry +0-40 -composite "$SALIDA"
 
 echo "==> Firma discreta"
-convert "$SALIDA" -gravity South -pointsize 22 -fill '#ffffffcc' \
-  -annotate +0+36 "CeiOS · Ciencia e Investigación" "$SALIDA"
+# Fuente explícita: sin esto ImageMagick busca 'helvetica' (no instalada) y falla
+FUENTE=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+if [ -f "$FUENTE" ]; then
+  convert "$SALIDA" -gravity South -pointsize 22 -fill '#ffffffcc' \
+    -font "$FUENTE" \
+    -annotate +0+36 "CeiOS · Ciencia e Investigación" "$SALIDA"
+else
+  echo "    (firma omitida: no se encontró DejaVu Sans)"
+fi
 rm -f /tmp/ceios-marco.png /tmp/ceios-marco-sombra.png
 
 echo "==> Aplicando en LXQt"
