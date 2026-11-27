@@ -1,0 +1,10 @@
+#!/bin/sh
+# CeiOS: idioma español y hostname
+set -e
+sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
+grep -q '^es_ES.UTF-8 UTF-8' /etc/locale.gen || echo 'es_ES.UTF-8 UTF-8' >> /etc/locale.gen
+locale-gen
+update-locale LANG=es_ES.UTF-8
+echo ceios > /etc/hostname
+sed -i 's/^127.0.1.1.*/127.0.1.1\tceios/' /etc/hosts 2>/dev/null || true
+echo "CeiOS: idioma es_ES.UTF-8 y hostname ceios configurados."

@@ -1,0 +1,23 @@
+#!/bin/sh
+# CeiOS: tema Fluent (GTK) con acento rojo — look Windows 11.
+# Tolerante a fallos de red: si no se puede clonar, LXQt usa su tema por defecto.
+set +e
+TMP=$(mktemp -d)
+git clone --depth 1 https://github.com/vinceliuice/Fluent-gtk-theme.git "$TMP/Fluent" >/dev/null 2>&1
+if [ -d "$TMP/Fluent" ]; then
+  cd "$TMP/Fluent" || exit 0
+  ./install.sh --dest /usr/share/themes --name Fluent --theme red --color light >/dev/null 2>&1 || \
+    sh install.sh -d /usr/share/themes -n Fluent -t red -c light >/dev/null 2>&1 || true
+  # Variante oscura disponible en Preferencias
+  ./install.sh --dest /usr/share/themes --name Fluent --theme red --color dark >/dev/null 2>&1 || true
+fi
+rm -rf "$TMP"
+
+TEMA=$(find /usr/share/themes -maxdepth 1 -iname 'fluent*red*' 2>/dev/null | sort | head -1)
+[ -n "$TEMA" ] || TEMA=$(find /usr/share/themes -maxdepth 1 -iname 'fluent*' 2>/dev/null | head -1)
+TEMA=$(basename "${TEMA:-Frost}")
+
+if [ -f /etc/skel/.config/lxqt/lxqt.conf ]; then
+  sed -i "s|^theme=.*|theme=$TEMA|" /etc/skel/.config/lxqt/lxqt.conf
+fi
+echo "CeiOS: tema GTK aplicado ($TEMA)."

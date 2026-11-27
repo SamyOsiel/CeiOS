@@ -1,0 +1,24 @@
+# CeiOS — escritorio y aplicaciones base (Debian 12 bookworm)
+
+# Escritorio LXQt (ligero, apariencia Windows 11 con tema Fluent)
+lxqt-core lxqt-panel lxqt-runner lxqt-config lxqt-session lxqt-notificationd
+lxqt-qtplugin lxqt-about lxqt-powermanagement lxqt-archiver lxqt-themes
+sddm sddm-theme-debian-maui
+openbox obconf picom pcmanfm-qt qterminal featherpad
+
+# Red e idioma
+network-manager network-manager-gnome zenity
+fonts-noto-core fonts-noto-ui-core fonts-dejavu-core fonts-liberation
+
+# Navegación y ofimática del investigador
+firefox-esr firefox-esr-l10n-es-es
+libreoffice libreoffice-l10n-es
+
+# Utilidades ligeras
+qpdfview mpv papirus-icon-theme zram-tools librsvg2-bin xdg-user-dirs
+
+# Instalador gráfico del sistema
+calamares calamares-settings-debian
+
+# Base
+sudo nano less bash-completion curl wget git unzip zip p7zip-full ca-certificates rsync

@@ -1,0 +1,7 @@
+#!/bin/sh
+# CeiOS: limpieza final para que la ISO pese lo mínimo
+set -e
+apt-get clean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/* 2>/dev/null || true
+echo "CeiOS: limpieza final hecha."
+du -sh / 2>/dev/null || true

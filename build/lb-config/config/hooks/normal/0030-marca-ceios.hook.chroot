@@ -1,0 +1,35 @@
+#!/bin/sh
+# CeiOS: identidad de marca (os-release, fondo de escritorio 1920x1080, logo)
+set -e
+
+sed -i 's|^PRETTY_NAME=.*|PRETTY_NAME="CeiOS 0.1 (Tocororo)"|' /etc/os-release
+grep -q '^CEIOS_VERSION=' /etc/os-release || cat >> /etc/os-release <<'EOF'
+CEIOS_VERSION="0.1"
+CEIOS_CODENAME="Tocororo"
+HOME_URL="https://github.com/SamyOsiel/CeiOS"
+EOF
+if [ -f /etc/lsb-release ]; then
+  sed -i 's|^DISTRIB_DESCRIPTION=.*|DISTRIB_DESCRIPTION="CeiOS 0.1 (Tocororo)"|' /etc/lsb-release
+fi
+
+# Fondo: prefiere el PNG oficial ya compuesto (1920x1080), luego el del
+# usuario; si no hay ninguno, renderiza el emblema vectorial por defecto
+mkdir -p /usr/share/wallpapers/ceios
+if [ -f /usr/share/wallpapers/ceios/ceios-wallpaper-1920.png ]; then
+  : # ya lo trae build.sh
+elif [ -f /usr/share/ceios/assets/ceios-wallpaper-usuario.png ]; then
+  cp /usr/share/ceios/assets/ceios-wallpaper-usuario.png \
+     /usr/share/wallpapers/ceios/ceios-wallpaper-1920.png
+elif command -v rsvg-convert >/dev/null 2>&1; then
+  rsvg-convert -w 1920 -h 1080 /usr/share/ceios/assets/ceios-wallpaper.svg \
+    -o /usr/share/wallpapers/ceios/ceios-wallpaper-1920.png
+elif command -v convert >/dev/null 2>&1; then
+  convert -background none /usr/share/ceios/assets/ceios-wallpaper.svg \
+    -resize 1920x1080 /usr/share/wallpapers/ceios/ceios-wallpaper-1920.png
+else
+  cp /usr/share/ceios/assets/ceios-wallpaper.svg /usr/share/wallpapers/ceios/
+fi
+cp /usr/share/ceios/assets/ceios-logo.svg /usr/share/wallpapers/ceios/ceios-logo.svg 2>/dev/null || true
+cp /usr/share/ceios/assets/ceios-icon.svg /usr/share/icons/ceios-icon.svg 2>/dev/null || true
+
+echo "CeiOS: marca y fondo instalados."

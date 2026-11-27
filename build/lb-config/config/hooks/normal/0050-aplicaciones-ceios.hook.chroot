@@ -1,0 +1,6 @@
+#!/bin/sh
+# CeiOS: deja listos los módulos de aplicaciones incluidos en la imagen
+set -e
+chmod 0755 /usr/local/bin/ceios/*.sh 2>/dev/null || true
+command -v zenity >/dev/null 2>&1 || apt-get install -y zenity >/dev/null 2>&1 || true
+echo "CeiOS: módulos de aplicaciones listos en /usr/local/bin/ceios/."
