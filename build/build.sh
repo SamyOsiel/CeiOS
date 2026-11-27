@@ -57,7 +57,28 @@ sh auto/config
 
 echo "==> [3/4] Compilando (tarda 10-30 min según la red)"
 $SUDO lb clean --all >/dev/null 2>&1 || true
-$SUDO lb build
+rc=0
+$SUDO lb build 2>&1 | tee lb-build.log || rc=$?
+if [ "$rc" -ne 0 ]; then
+  echo ""
+  echo "==> lb build FALLÓ (código $rc) — ÚLTIMAS 60 LÍNEAS DEL LOG:"
+  tail -n 60 lb-build.log || true
+  echo ""
+  echo "==> LÍNEAS DE ERROR RELEVANTES:"
+  grep -nE "E: |ERROR|error:|failed|Failure|cannot|No such|not found|denied|Operation not permitted" \
+    lb-build.log | tail -n 15 || true
+  echo ""
+  echo "==> Emitiendo el diagnóstico como anotaciones de error (máx. 10):"
+  grep -E "E: |ERROR|error:|failed|Failure|cannot|No such|not found|denied|Operation not permitted" \
+    lb-build.log | tail -n 6 | cut -c1-1800 | while IFS= read -r l; do
+    printf '::error::%s\n' "$l"
+  done || true
+  tail -n 4 lb-build.log | cut -c1-1800 | while IFS= read -r l; do
+    printf '::error::%s\n' "$l"
+  done
+  exit "$rc"
+fi
+tail -n 3 lb-build.log || true
 
 echo "==> [4/4] Publicando la ISO"
 mkdir -p "$ROOT/images"
