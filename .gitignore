@@ -1,0 +1,28 @@
+# Artefactos generados por build.sh (sincronizados desde scripts/, theme/ y assets/)
+build/lb-config/config/includes.chroot/
+
+# Artefactos de live-build
+build/lb-config/config/binary
+build/lb-config/config/bootstrap
+build/lb-config/config/chroot
+build/lb-config/config/common
+build/lb-config/.build/
+build/lb-config/binary/
+build/lb-config/chroot/
+build/lb-config/cache/
+build/lb-config/local/
+build/lb-config/images/
+
+# Resultados de compilación
+images/
+*.iso
+*.img
+*.log
+
+# Fondos generados (se recomponen con build/ci-prepare.sh — no versionar PNG)
+assets/wallpaper/ceios-wallpaper-1920.png
+assets/wallpaper/ceios-wallpaper-usuario.png
+assets/wallpaper/wallpaper-usuario.jpg
+assets/wallpaper/wallpaper-usuario.png
+# La foto oficial se versiona en texto: wallpaper-usuario.jpg.b64
+# (PNGs de branding: se regeneran desde los SVG con ci-prepare.sh)
