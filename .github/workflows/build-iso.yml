@@ -25,7 +25,7 @@ jobs:
       - name: Compilar la ISO (entorno reproducible Debian 12)
         run: |
           docker build -t ceios-builder build/
-          docker run --rm -v "$PWD":/work ceios-builder
+          docker run --rm --privileged -v "$PWD":/work ceios-builder
 
       - name: Resumen de la compilación
         run: |
