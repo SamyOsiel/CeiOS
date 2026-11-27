@@ -3,6 +3,7 @@
 set -e
 sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
 grep -q '^es_ES.UTF-8 UTF-8' /etc/locale.gen || echo 'es_ES.UTF-8 UTF-8' >> /etc/locale.gen
+command -v locale-gen >/dev/null 2>&1 || apt-get install -y locales >/dev/null 2>&1
 locale-gen
 update-locale LANG=es_ES.UTF-8
 echo ceios > /etc/hostname
