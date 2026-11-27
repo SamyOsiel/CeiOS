@@ -1,0 +1,65 @@
+name: Compilar ISO oficial de CeiOS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Liberar espacio en disco (~25 GB)
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc \
+            /usr/local/share/boost /usr/lib/jvm || true
+          sudo docker image prune -f || true
+          df -h /
+
+      - name: Compilar la ISO (entorno reproducible Debian 12)
+        run: |
+          docker build -t ceios-builder build/
+          docker run --rm -v "$PWD":/work ceios-builder
+
+      - name: Resumen de la compilación
+        run: |
+          ls -lh images/
+          cat images/SHA256SUMS
+
+      - name: Guardar artefacto de la ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: ceios-iso
+          path: |
+            images/*.iso
+            images/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publicar la ISO oficial en Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISO=$(ls images/*.iso | head -1)
+          SIZE=$(du -h "$ISO" | cut -f1)
+          echo "ISO compilada: $ISO ($SIZE)"
+          gh release view v0.1-tocororo --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create v0.1-tocororo \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "CeiOS 0.1 «Tocororo» — ISO oficial" \
+              --notes "Primera ISO oficial de CeiOS (v0.1 Tocororo).
+          - Debian 12 + LXQt, apariencia Windows 11 con la paleta cubana
+          - Optimizada para 2 GB de RAM (zram lz4) y 16 GB de disco
+          - Fondo oficial: rombo, estrella, ramas de laurel y bandera cubana
+          - Módulos: Zotero, LaTeX ligero, Python científico, OnlyOffice
+          - Office 2016 y EndNote vía Wine (requieren tu propia licencia)
+
+          SHA256 en \`SHA256SUMS\`. Graba la ISO en un USB (≥4 GB) con Rufus, dd o Ventoy."
+          gh release upload v0.1-tocororo images/*.iso images/SHA256SUMS --clobber
+          echo "ISO publicada en https://github.com/$GITHUB_REPOSITORY/releases/tag/v0.1-tocororo"
